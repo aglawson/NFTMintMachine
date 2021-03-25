@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 contract NFTMint is ERC721 {
     //uint public tokenId;
 
-    constructor(string memory tokenName, string memory tokenSymbol) ERC721(tokenName, tokenSymbol){
+    constructor() ERC721("Test", "TST"){
         _mint(msg.sender, 1);
     }
 }
