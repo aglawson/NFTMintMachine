@@ -1,19 +1,19 @@
-// SPDX-License-Identifier: MIT
 pragma solidity 0.7.2;
 
-contract Migrations {
-  address public owner = msg.sender;
-  uint public last_completed_migration;
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-  modifier restricted() {
-    require(
-      msg.sender == owner,
-      "This function is restricted to the contract's owner"
-    );
-    _;
-  }
+contract NFTMint is ERC721 {
+    //uint public tokenId;
+    uint256 public tokenCounter;
+    constructor() ERC721("Test", "TST"){
+        tokenCounter = 0;
+    }
 
-  function setCompleted(uint completed) public restricted {
-    last_completed_migration = completed;
-  }
+    function createCollectible(string memory tokenURI) public returns (uint256) {
+        uint256 newItemId = tokenCounter;
+        _safeMint(msg.sender, newItemId);
+        _setTokenURI(newItemId, tokenURI);
+        tokenCounter = tokenCounter + 1;
+        return newItemId;
+    }
 }
